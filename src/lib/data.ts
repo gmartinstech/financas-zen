@@ -1,3 +1,4 @@
+
 import { Utensils, Car, Home, Ticket, Landmark, Sprout, Briefcase, ShoppingCart, Activity } from 'lucide-react';
 
 export type Transaction = {
@@ -22,6 +23,15 @@ export type Budget = {
   limit: number;
   spent: number;
 };
+
+export type Document = {
+  id: string;
+  filename: string;
+  uploadedAt: string;
+  status: 'processing' | 'awaiting-action' | 'completed' | 'failed';
+  thumbnailUrl?: string;
+};
+
 
 export const categories: Category[] = [
   { id: 'cat-1', name: 'Alimentação', icon: Utensils },
@@ -60,10 +70,6 @@ export const transactions: Transaction[] = [
   { id: 'txn-14', date: new Date(currentYear, currentMonth, 30).toISOString(), description: 'Assinatura Streaming', amount: 45.90, type: 'expense', category: 'Lazer', status: 'scheduled' },
 ];
 
-const totalExpenses = transactions
-  .filter(t => t.type === 'expense' && t.status === 'completed')
-  .reduce((acc, t) => acc + t.amount, 0);
-
 const expensesByCategory = transactions
   .filter(t => t.type === 'expense' && t.status === 'completed')
   .reduce((acc, t) => {
@@ -81,4 +87,12 @@ export const budgets: Budget[] = [
   { id: 'bud-4', category: 'Moradia', limit: 1800, spent: expensesByCategory['Moradia'] || 0 },
   { id: 'bud-5', category: 'Compras', limit: 250, spent: expensesByCategory['Compras'] || 0 },
   { id: 'bud-6', category: 'Saúde', limit: 200, spent: expensesByCategory['Saúde'] || 0 },
+];
+
+
+export const documents: Document[] = [
+    { id: 'doc-1', filename: 'recibo-restaurante.pdf', uploadedAt: new Date(currentYear, currentMonth, 1).toISOString(), status: 'completed', thumbnailUrl: 'https://picsum.photos/seed/doc1/100/100' },
+    { id: 'doc-2', filename: 'boleto-internet.png', uploadedAt: new Date(currentYear, currentMonth, 3).toISOString(), status: 'awaiting-action', thumbnailUrl: 'https://picsum.photos/seed/doc2/100/100' },
+    { id: 'doc-3', filename: 'fatura-cartao.pdf', uploadedAt: new Date(currentYear, currentMonth, 4).toISOString(), status: 'processing', thumbnailUrl: 'https://picsum.photos/seed/doc3/100/100' },
+    { id: 'doc-4', filename: 'comprovante-transferencia.jpg', uploadedAt: new Date(currentYear, currentMonth, 5).toISOString(), status: 'failed', thumbnailUrl: 'https://picsum.photos/seed/doc4/100/100' },
 ];
