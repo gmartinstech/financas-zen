@@ -1,5 +1,6 @@
 
-import { Utensils, Car, Home, Ticket, Landmark, Sprout, Briefcase, ShoppingCart, Activity } from 'lucide-react';
+import { Utensils, Car, Home, Ticket, Landmark, Sprout, Briefcase, ShoppingCart, Activity, type LucideIcon } from 'lucide-react';
+import * as availableIcons from '@/lib/available-icons';
 
 export type Transaction = {
   id: string;
@@ -14,7 +15,8 @@ export type Transaction = {
 export type Category = {
   id: string;
   name: string;
-  icon: any; // Lucide icon component
+  iconName: keyof typeof availableIcons;
+  icon: LucideIcon;
 };
 
 export type Budget = {
@@ -33,16 +35,16 @@ export type Document = {
 };
 
 
-export const categories: Category[] = [
-  { id: 'cat-1', name: 'Alimentação', icon: Utensils },
-  { id: 'cat-2', name: 'Transporte', icon: Car },
-  { id: 'cat-3', name: 'Moradia', icon: Home },
-  { id: 'cat-4', name: 'Lazer', icon: Ticket },
-  { id: 'cat-5', name: 'Salário', icon: Landmark },
-  { id: 'cat-6', name: 'Outros', icon: Sprout },
-  { id: 'cat-7', name: 'Compras', icon: ShoppingCart },
-  { id: 'cat-8', name: 'Saúde', icon: Activity },
-  { id: 'cat-9', name: 'Trabalho', icon: Briefcase },
+export let categories: Category[] = [
+  { id: 'cat-1', name: 'Alimentação', icon: Utensils, iconName: 'Utensils' },
+  { id: 'cat-2', name: 'Transporte', icon: Car, iconName: 'Car' },
+  { id: 'cat-3', name: 'Moradia', icon: Home, iconName: 'Home' },
+  { id: 'cat-4', name: 'Lazer', icon: Ticket, iconName: 'Ticket' },
+  { id: 'cat-5', name: 'Salário', icon: Landmark, iconName: 'Landmark' },
+  { id: 'cat-6', name: 'Outros', icon: Sprout, iconName: 'Sprout' },
+  { id: 'cat-7', name: 'Compras', icon: ShoppingCart, iconName: 'ShoppingCart' },
+  { id: 'cat-8', name: 'Saúde', icon: Activity, iconName: 'Activity' },
+  { id: 'cat-9', name: 'Trabalho', icon: Briefcase, iconName: 'Briefcase' },
 ];
 
 const today = new Date();
