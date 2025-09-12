@@ -1,27 +1,22 @@
 import { PageHeader } from '@/components/shared/page-header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle } from 'lucide-react';
+import { transactions } from '@/lib/data';
+import { DataTable } from './data-table';
+import { columns } from './columns';
+import { NewTransactionSheet } from './new-transaction-sheet';
 
 export default function TransactionsPage() {
+  // TODO: Add state management for transactions (fetching, adding, deleting)
+  // TODO: Implement filtering logic based on toolbar controls
+
   return (
     <>
       <PageHeader title="Transações" description="Gerencie suas receitas e despesas.">
-        <Button>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Nova Transação
-        </Button>
+        <NewTransactionSheet />
       </PageHeader>
       <main className="flex-1 p-4 pt-6 md:p-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Em Breve</CardTitle>
-            <CardDescription>A gestão completa de transações estará disponível aqui.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>Filtros, ordenação, paginação e um formulário robusto para adicionar e editar transações, incluindo regras de recorrência, serão implementados nesta seção.</p>
-          </CardContent>
-        </Card>
+        <DataTable columns={columns} data={transactions} />
       </main>
     </>
   );
