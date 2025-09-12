@@ -61,7 +61,7 @@ export function RecentTransactions() {
                     <Badge variant="outline">{transaction.category}</Badge>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
-                    {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                    {new Date(transaction.date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
                   </TableCell>
                   <TableCell
                     className={cn(

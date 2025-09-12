@@ -74,7 +74,7 @@ export const columns: ColumnDef<Transaction>[] = [
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"))
-      return <span>{date.toLocaleDateString("pt-BR")}</span>
+      return <span>{date.toLocaleDateString("pt-BR", { timeZone: 'UTC' })}</span>
     },
   },
   {

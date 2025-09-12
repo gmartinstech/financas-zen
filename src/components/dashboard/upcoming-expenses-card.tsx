@@ -63,7 +63,7 @@ export function UpcomingExpensesCard({ transactions }: UpcomingExpensesCardProps
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {new Date(transaction.date).toLocaleDateString("pt-BR")}
+                    {new Date(transaction.date).toLocaleDateString("pt-BR", { timeZone: 'UTC' })}
                   </TableCell>
                   <TableCell className="text-right">
                     {formatCurrency(transaction.amount)}
