@@ -37,12 +37,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarNav />
         </SidebarContent>
         <SidebarFooter>
-           <Link href="/login" legacyBehavior passHref>
-             <Button variant="ghost" className="w-full justify-start gap-2 p-2 text-left">
+           <Button variant="ghost" className="w-full justify-start gap-2 p-2 text-left" asChild>
+             <Link href="/login">
                 <LogOut className="h-4 w-4" />
                 <span>Sair</span>
-             </Button>
-            </Link>
+             </Link>
+            </Button>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="min-h-screen bg-background">
