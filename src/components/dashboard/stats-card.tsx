@@ -21,7 +21,7 @@ export function StatsCard({ title, value, icon: Icon, description, isLoading }: 
         </CardHeader>
         <CardContent>
           <Skeleton className="h-8 w-32" />
-          <Skeleton className="mt-1 h-4 w-40" />
+          {description && <Skeleton className="mt-1 h-4 w-40" />}
         </CardContent>
       </Card>
     );
