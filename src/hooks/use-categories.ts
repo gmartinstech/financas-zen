@@ -10,29 +10,36 @@ export function useCategories() {
   const [categories, setCategories] = useState<Category[]>(initialCategories);
   const { toast } = useToast();
 
-  const addCategory = (name: string, iconName: keyof typeof availableIcons) => {
+  const addCategory = (values: { name: string, iconName: keyof typeof availableIcons, type: 'income' | 'expense' }) => {
     const newCategory: Category = {
       id: `cat-${Date.now()}`,
-      name,
-      iconName,
-      icon: availableIcons[iconName],
+      name: values.name,
+      iconName: values.iconName,
+      icon: availableIcons[values.iconName],
+      type: values.type,
     };
     setCategories(prev => [...prev, newCategory]);
     toast({
       title: 'Categoria Adicionada',
-      description: `A categoria "${name}" foi criada com sucesso.`,
+      description: `A categoria "${values.name}" foi criada com sucesso.`,
     });
   };
 
-  const updateCategory = (id: string, name: string, iconName: keyof typeof availableIcons) => {
+  const updateCategory = (id: string, values: { name: string, iconName: keyof typeof availableIcons, type: 'income' | 'expense' }) => {
     setCategories(prev =>
       prev.map(cat =>
-        cat.id === id ? { ...cat, name, iconName, icon: availableIcons[iconName] } : cat
+        cat.id === id ? { 
+            ...cat, 
+            name: values.name, 
+            iconName: values.iconName, 
+            icon: availableIcons[values.iconName],
+            type: values.type,
+        } : cat
       )
     );
     toast({
       title: 'Categoria Atualizada',
-      description: `A categoria "${name}" foi atualizada com sucesso.`,
+      description: `A categoria "${values.name}" foi atualizada com sucesso.`,
     });
   };
 

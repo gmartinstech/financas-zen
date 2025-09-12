@@ -37,6 +37,7 @@ import { availableIcons } from '@/lib/available-icons';
 const formSchema = z.object({
   name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
   iconName: z.string({ required_error: "Por favor, selecione um ícone." }),
+  type: z.enum(['income', 'expense'], { required_error: "Por favor, selecione um tipo." }),
 });
 
 type CategoryFormValues = z.infer<typeof formSchema>;
@@ -44,9 +45,9 @@ type CategoryFormValues = z.infer<typeof formSchema>;
 type CategoryDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (name: string, iconName: keyof typeof availableIcons) => void;
+  onSave: (values: { name: string; iconName: keyof typeof availableIcons; type: 'income' | 'expense' }) => void;
   onClose: () => void;
-  category: Category | null;
+  category: Omit<Category, 'icon'> | null;
 };
 
 export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }: CategoryDialogProps) {
@@ -55,6 +56,7 @@ export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }
     defaultValues: {
       name: '',
       iconName: undefined,
+      type: 'expense',
     },
   });
 
@@ -63,17 +65,23 @@ export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }
       form.reset({
         name: category.name,
         iconName: category.iconName,
+        type: category.type,
       });
     } else {
       form.reset({
         name: '',
         iconName: undefined,
+        type: 'expense',
       });
     }
   }, [category, form, open]);
 
   const handleSubmit = (values: CategoryFormValues) => {
-    onSave(values.name, values.iconName as keyof typeof availableIcons);
+    onSave({
+        name: values.name,
+        iconName: values.iconName as keyof typeof availableIcons,
+        type: values.type,
+    });
     onClose();
   };
 
@@ -83,7 +91,7 @@ export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }
         <DialogHeader>
           <DialogTitle>{category ? 'Editar Categoria' : 'Nova Categoria'}</DialogTitle>
           <DialogDescription>
-            {category ? 'Altere os detalhes da sua categoria.' : 'Crie uma nova categoria para seus orçamentos.'}
+            {category ? 'Altere os detalhes da sua categoria.' : 'Crie uma nova categoria para suas transações.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -97,6 +105,27 @@ export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }
                   <FormControl>
                     <Input placeholder="Ex: Educação" {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+             <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tipo</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione um tipo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                        <SelectItem value="expense">Despesa</SelectItem>
+                        <SelectItem value="income">Receita</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -120,7 +149,6 @@ export function CategoryDialog({ open, onOpenChange, onSave, onClose, category }
                           <SelectItem key={name} value={name}>
                             <div className="flex items-center gap-2">
                                 <Icon className="h-5 w-5" />
-                                {/* Hidden on selector, shown in dropdown */}
                                 <span className="sr-only">{name}</span>
                             </div>
                           </SelectItem>

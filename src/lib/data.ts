@@ -17,6 +17,8 @@ export type Category = {
   name: string;
   iconName: keyof typeof availableIcons;
   icon: LucideIcon;
+  type: 'income' | 'expense';
+  parentId?: string | null;
 };
 
 export type Budget = {
@@ -36,15 +38,15 @@ export type Document = {
 
 
 export let categories: Category[] = [
-  { id: 'cat-1', name: 'Alimentação', icon: Utensils, iconName: 'Utensils' },
-  { id: 'cat-2', name: 'Transporte', icon: Car, iconName: 'Car' },
-  { id: 'cat-3', name: 'Moradia', icon: Home, iconName: 'Home' },
-  { id: 'cat-4', name: 'Lazer', icon: Ticket, iconName: 'Ticket' },
-  { id: 'cat-5', name: 'Salário', icon: Landmark, iconName: 'Landmark' },
-  { id: 'cat-6', name: 'Outros', icon: Sprout, iconName: 'Sprout' },
-  { id: 'cat-7', name: 'Compras', icon: ShoppingCart, iconName: 'ShoppingCart' },
-  { id: 'cat-8', name: 'Saúde', icon: Activity, iconName: 'Activity' },
-  { id: 'cat-9', name: 'Trabalho', icon: Briefcase, iconName: 'Briefcase' },
+  { id: 'cat-1', name: 'Alimentação', icon: Utensils, iconName: 'Utensils', type: 'expense' },
+  { id: 'cat-2', name: 'Transporte', icon: Car, iconName: 'Car', type: 'expense' },
+  { id: 'cat-3', name: 'Moradia', icon: Home, iconName: 'Home', type: 'expense' },
+  { id: 'cat-4', name: 'Lazer', icon: Ticket, iconName: 'Ticket', type: 'expense' },
+  { id: 'cat-5', name: 'Salário', icon: Landmark, iconName: 'Landmark', type: 'income' },
+  { id: 'cat-6', name: 'Outros', icon: Sprout, iconName: 'Sprout', type: 'expense' },
+  { id: 'cat-7', name: 'Compras', icon: ShoppingCart, iconName: 'ShoppingCart', type: 'expense' },
+  { id: 'cat-8', name: 'Saúde', icon: Activity, iconName: 'Activity', type: 'expense' },
+  { id: 'cat-9', name: 'Trabalho', icon: Briefcase, iconName: 'Briefcase', type: 'income' },
 ];
 
 const today = new Date();
